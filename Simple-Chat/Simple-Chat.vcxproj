@@ -115,6 +115,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Main_Menu.cpp" />
+    <ClCompile Include="Simple_Chat.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Main_Menu.hpp" />
+    <ClInclude Include="Simple_Chat.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
