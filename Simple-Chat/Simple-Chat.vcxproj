@@ -115,12 +115,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Main_Menu.cpp" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="Simple_Chat.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseObject.hpp" />
+    <ClInclude Include="Client.hpp" />
     <ClInclude Include="Main_Menu.hpp" />
+    <ClInclude Include="Server.hpp" />
     <ClInclude Include="Simple_Chat.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

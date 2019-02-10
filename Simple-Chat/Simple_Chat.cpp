@@ -1,10 +1,13 @@
 #include "Simple_Chat.hpp"
 
 #include <iostream>
+#include <conio.h>
 
 SimpleChat::SimpleChat()
 {
 	main_menu = std::make_unique<Main_Menu>();
+	server = std::make_unique<Server>();
+	client = std::make_unique<Client>();
 }
 
 void SimpleChat::start_application(SimpleChat::MODE mode)
@@ -46,6 +49,23 @@ void SimpleChat::normal_mode()
 		user_choice = main_menu->start_menu();
 		if (user_choice == Main_Menu::EXIT)
 			quit_application();
+		handle_user_input(user_choice);
+	}
+}
+
+void SimpleChat::handle_user_input(const Main_Menu::MENU_ENTRIES &user_choice)
+{
+	switch (user_choice) {
+	case Main_Menu::START_SERVER:
+		server->start();
+		break;
+	case Main_Menu::CONNET_TO_SERVER:
+		client->start();
+		break;
+	default:
+		std::cout << "Sorry, no such menu entry" << std::endl;
+		_getch();
+		break;
 	}
 }
 
