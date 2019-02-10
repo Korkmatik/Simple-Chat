@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Main_Menu.hpp"
+#include "Client.hpp"
+#include "Server.hpp"
 
 #include <string>
 #include <memory>
@@ -24,10 +26,13 @@ public:
 private:
 	// Menus
 	std::unique_ptr<Main_Menu> main_menu;
+	std::unique_ptr<Server> server;
+	std::unique_ptr<Client> client;
 
 	SimpleChat::MODE mode;
 
 	void normal_mode();
+	void handle_user_input(const Main_Menu::MENU_ENTRIES & user_choice);
 
 	[[ noreturn ]] void quit_application();
 };
