@@ -14,6 +14,10 @@ void SimpleChat::start_application(SimpleChat::MODE mode)
 {
 	if (mode == NORMAL)
 		normal_mode();
+	else if (mode == SERVER)
+		handle_user_input(Main_Menu::START_SERVER);
+	else if (mode == CLIENT)
+		handle_user_input(Main_Menu::CONNET_TO_SERVER);
 }
 
 void SimpleChat::print_usage()
