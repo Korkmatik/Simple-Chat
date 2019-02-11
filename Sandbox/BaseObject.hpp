@@ -1,10 +1,10 @@
 #pragma once
-#include <WS2tcpip.h>
+#include <exception>
 
 class BaseObject
 {
 public:
-	explicit BaseObject(u_short port);
+	explicit BaseObject(unsigned short port);
 
 	BaseObject(BaseObject& other) = delete;
 	BaseObject& operator=(BaseObject& other) = delete;
@@ -19,7 +19,7 @@ public:
 
 protected:
 	bool isCleanedUp;
-	u_short port;
+	unsigned short port;
 
 	bool isInitialized;
 
@@ -27,3 +27,21 @@ private:
 
 };
 
+class InvalidSocket : public std::exception 
+{
+public:
+	const char* what() const override
+	{
+		return "Could not create a socket";
+	}
+};
+
+class WinSockInitError : public std::exception
+{
+public:
+	const char* what() const override
+	{
+		return "Can't initialize WinSock";
+	}
+
+};

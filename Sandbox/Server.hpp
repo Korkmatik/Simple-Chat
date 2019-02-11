@@ -2,16 +2,13 @@
 
 #include "BaseObject.hpp"
 
-#include <conio.h>
+#include <WS2tcpip.h>
 #include <string>
-#include <iostream>
-
-using namespace std;
 
 class Server : public BaseObject
 {
 public:
-	explicit Server(u_short port);
+	explicit Server(u_short port, std::string serverName);
 	~Server();
 
 	bool init() override;
@@ -21,5 +18,16 @@ public:
 private:
 	SOCKET listening;
 	fd_set master;
+	unsigned connectedClients;
+
+	std::string serverName;
 };
 
+class ServerNotInitialized : public std::exception
+{
+public:
+	const char* what() const override
+	{
+		return "Server is not initialized yet";
+	}
+};

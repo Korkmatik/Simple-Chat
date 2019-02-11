@@ -1,12 +1,15 @@
 #include "Server.hpp"
 
 #include <sstream>
+#include <iostream>
+#include <string>
 
 
-Server::Server(u_short port)
-	: BaseObject(port)
+Server::Server(u_short port, std::string serverName)
+	: BaseObject(port), serverName(serverName)
 {	
-	cout << "Server created" << endl;
+	std::cout << "Server created" << std::endl;
+	connectedClients = 0;
 }
 
 
@@ -18,16 +21,16 @@ Server::~Server()
 
 bool Server::init()
 {
-	cout << "Initializing Server" << endl;
+	std::cout << "Initializing Server" << std::endl;
 
 	isInitialized = false;
 
 	// Create a socket
 	listening  = socket(AF_INET, SOCK_STREAM, 0);
 	if (listening == INVALID_SOCKET)
-		return isInitialized; // TODO: throw error that socket is invalid
+		throw InvalidSocket();
 
-	cout << "Socket initialized" << endl;
+	std::cout << "Socket initialized" << std::endl;
 
 	// Bind an ip address and a port to a socket
 	sockaddr_in hint;
@@ -37,7 +40,7 @@ bool Server::init()
 
 	bind(listening, (sockaddr*)&hint, sizeof(hint));
 
-	cout << "IP address and port binded" << endl;
+	std::cout << "IP address and port binded" << std::endl;
 
 	// Tell winosck the socket is for listening
 	listen(listening, SOMAXCONN);
@@ -47,21 +50,19 @@ bool Server::init()
 
 	isInitialized = true;
 
-	cout << "Server initialization completed" << endl;
+	std::cout << "Server initialization completed" << std::endl;
 
 	return isInitialized;
 }
 
 void Server::run()
 {
-	cout << "Starting server .." << endl;
+	std::cout << "Starting server .." << std::endl;
 	
-	if (!isInitialized) {
-		cout << "Error: Server is not initialized yet" << endl;
-		return; // TODO: throw server not initialized exception
-	}
+	if (!isInitialized)
+		throw ServerNotInitialized();
 
-	cout << "Server started" << endl;
+	std::cout << "Server started" << std::endl;
 
 	while (true)
 	{
@@ -81,10 +82,20 @@ void Server::run()
 				FD_SET(client, &master);
 
 				// send a welcome message to the connected client
-				string welcomeMsg = "Welcome to the awesome chat server!\r\n";
+				std::string welcomeMsg = "Welcome to the " + serverName + " server!\r\n";
 				send(client, welcomeMsg.c_str(), welcomeMsg.size() + 1, 0);
 
-				// TODO: Boradcast we have a new connection
+				std::ostringstream strStream;
+				strStream << "SOCKET #" << client << " connected\r\n";
+				std::string strOut = strStream.str();
+
+				for (u_int i = 0; i < master.fd_count; i++) {
+					SOCKET outSock = master.fd_array[i];
+					if (outSock != listening && outSock != client)
+						send(outSock, strOut.c_str(), strOut.size() + 1, 0);
+				}
+
+				std::cout << strOut << "\t(" << ++connectedClients << " Clients connected)" << std::endl;
 			}
 			else
 			{
@@ -95,6 +106,8 @@ void Server::run()
 				int bytesIn = recv(sock, buf, 4096, 0);
 				if (bytesIn <= 0)
 				{
+					std::cout << "Socket #" << sock << " disconnected\r\n" << "\t(" << --connectedClients << " Clients connected)" << std::endl;
+
 					// drop the client
 					closesocket(sock);
 					FD_CLR(sock, &master);
@@ -107,9 +120,9 @@ void Server::run()
 						SOCKET outSock = master.fd_array[i];
 						if (outSock != listening && outSock != sock)
 						{
-							ostringstream ss;
-							ss << "SOCKET #" << sock << ": " << buf << "\r\n";
-							string strOut = ss.str();
+							std::ostringstream strStream;
+							strStream << "SOCKET #" << sock << ": " << buf << "\r\n";
+							std::string strOut = strStream.str();
 
 							send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 						}
@@ -119,11 +132,11 @@ void Server::run()
 		}
 	}
 
-	cout << "Server going down .." << endl;
+	std::cout << "Server stopped .." << std::endl;
 }
 
 void Server::cleanUp()
 {
-	cout << "Cleaning server up" << endl;
+	std::cout << "Cleaning server up" << std::endl;
 	isCleanedUp = true;
 }

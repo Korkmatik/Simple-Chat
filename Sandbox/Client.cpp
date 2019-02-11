@@ -3,10 +3,10 @@
 #include <iostream>
 #include <conio.h>
 
-Client::Client(u_short port, string ipAddress)
+Client::Client(u_short port, std::string ipAddress)
 	: BaseObject(port), ipAddress(ipAddress), isConnected(false)
 {
-	cout << "Client created" << endl;
+	std::cout << "Client created" << std::endl;
 }
 
 
@@ -18,41 +18,41 @@ Client::~Client()
 
 bool Client::init()
 {
-	cout << "Initalializing client .." << endl;
+	std::cout << "Initalializing client .." << std::endl;
 
 	isInitialized = false;
 
 	// Create socket
 	sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock == INVALID_SOCKET)
-		return isInitialized; // TODO: throw error that socket could't be created
-	cout << "Socket initialized!" << endl;
+		throw InvalidSocket();
+	std::cout << "Socket initialized!" << std::endl;
 
 	// Fill in a hint structure
 	sockaddr_in hint;
 	hint.sin_family = AF_INET;
 	hint.sin_port = htons(port);
 	if (inet_pton(AF_INET, ipAddress.c_str(), &hint.sin_addr) != 1) {
-		cerr << "Error while filling ip address into hint" << endl;
+		std::cerr << "Error while filling ip address into hint" << std::endl;
 		return false;
 	}
 
-	cout << "Hint structure filled" << endl;
+	std::cout << "Hint structure filled" << std::endl;
 
 	// Connect to server
-	cout << "Trying to connect to server" << endl;
+	std::cout << "Trying to connect to server" << std::endl;
 	isConnected = true;
 	
 	int connRes = connect(sock, (sockaddr*)&hint, sizeof(hint));
 	if (connRes = SOCKET_ERROR) {
 		isConnected = false;
-		cerr << "Couln't connect to server!" << endl;
+		std::cerr << "Couln't connect to server!" << std::endl;
 	}
 
 	if (isConnected == false)
 		return isInitialized; // TODO: throw excecption that client could't connect to server
 
-	cout << "Connected to server" << endl;
+	std::cout << "Connected to server" << std::endl;
 
 	isInitialized = true;
 
@@ -62,25 +62,25 @@ bool Client::init()
 void Client::run()
 {
 	if (!isConnected) {
-		cout << "Can't start client! Client isn't connected to a server!" << endl;
+		std::cout << "Can't start client! Client isn't connected to a server!" << std::endl;
 		_getch();
 		return;
 	}
 
 	if (!isInitialized) {
-		cout << "Can't start client! Client isn't initialized!" << endl;
+		std::cout << "Can't start client! Client isn't initialized!" << std::endl;
 		_getch();
 		return;
 	}
 
 	char buffer[4096];
-	string userInput;
+	std::string userInput;
 
-	cout << "Starting client .." << endl;
+	std::cout << "Starting client .." << std::endl;
 
 	do {
-		cout << "> ";
-		getline(cin, userInput);
+		std::cout << "> ";
+		std::getline(std::cin, userInput);
 
 		if (userInput.size() > 0) {
 			int sendResult = send(sock, userInput.c_str(), userInput.size() + 1, 0);
@@ -90,7 +90,7 @@ void Client::run()
 				int bytesReceived = recv(sock, buffer, 4096, 0);
 				if (bytesReceived > 0) {
 					// echo response to console
-					cout << "Server> " << string(buffer, 0, bytesReceived) << endl;
+					std::cout << "Server> " << std::string(buffer, 0, bytesReceived) << std::endl;
 				}
 			}
 		}
@@ -99,7 +99,7 @@ void Client::run()
 
 void Client::cleanUp()
 {
-	cout << "Cleaning client up" << endl;
+	std::cout << "Cleaning client up" << std::endl;
 	isCleanedUp = true;
 	closesocket(sock);
 }
