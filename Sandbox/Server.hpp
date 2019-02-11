@@ -1,15 +1,17 @@
 #pragma once
-#include <WS2tcpip.h>
+
+#include "BaseObject.hpp"
+
 #include <conio.h>
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-class Server
+class Server : public BaseObject
 {
 public:
-	Server(u_short port);
+	explicit Server(u_short port);
 	~Server();
 
 	Server(Server& other) = delete;
@@ -18,12 +20,12 @@ public:
 	Server& operator=(Server&& other) = delete;
 
 
-	bool init();
-	void run();
+	bool init() override;
+	void run() override;
+	void cleanUp() override;
 
 private:
 	SOCKET listening;
-	u_short port;
 	fd_set master;
 };
 

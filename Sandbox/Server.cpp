@@ -4,7 +4,7 @@
 
 
 Server::Server(u_short port)
-	: port(port)
+	: BaseObject(port)
 {
 	WSAData data;
 	WORD version = MAKEWORD(2, 2);
@@ -23,7 +23,7 @@ Server::~Server()
 bool Server::init()
 {
 	// Create a socket
-	listening = socket(AF_INET, SOCK_STREAM, 0);
+	listening  = socket(AF_INET, SOCK_STREAM, 0);
 	if (listening == INVALID_SOCKET) {
 		return false;
 	}
@@ -102,4 +102,9 @@ void Server::run()
 			}
 		}
 	}
+}
+
+void Server::cleanUp()
+{
+	isCleanedUp = true;
 }
