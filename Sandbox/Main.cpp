@@ -7,15 +7,17 @@ int main()
 	char choice = _getch();
 
 	if (choice == 'c') {
-		cout << "Client is running" << endl;
-		Client c(8080, "127.0.0.1");
-
+		cout << "CLIENT\n-------------------------------------------"<< endl;
+		Client c(54000, "127.0.0.1");
 		if (c.init())
 			c.run();
+
+		cout << "Press any key to quit" << endl;
+		_getch();
 	}
 	else if (choice == 's') {
-		cout << "Server is running" << endl;
-		Server s(8080);
+		cout << "SERVER\n-------------------------------------------" << endl;
+		Server s(54000);
 
 		if (s.init())
 			s.run();

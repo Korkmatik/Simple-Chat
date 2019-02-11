@@ -58,8 +58,10 @@ void Server::run()
 	
 	if (!isInitialized) {
 		cout << "Error: Server is not initialized yet" << endl;
-		return; // TODO: throw erver not initialized exception
+		return; // TODO: throw server not initialized exception
 	}
+
+	cout << "Server started" << endl;
 
 	while (true)
 	{

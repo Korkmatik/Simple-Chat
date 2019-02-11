@@ -3,7 +3,7 @@
 #include <iostream>
 #include <conio.h>
 
-Client::Client(u_short port, string ipAdress)
+Client::Client(u_short port, string ipAddress)
 	: BaseObject(port), ipAddress(ipAddress), isConnected(false)
 {
 	cout << "Client created" << endl;
@@ -29,14 +29,28 @@ bool Client::init()
 	cout << "Socket initialized!" << endl;
 
 	// Fill in a hint structure
+	sockaddr_in hint;
 	hint.sin_family = AF_INET;
 	hint.sin_port = htons(port);
-	inet_pton(AF_INET, ipAddress.c_str(), &hint.sin_addr);
+	if (inet_pton(AF_INET, ipAddress.c_str(), &hint.sin_addr) != 1) {
+		cerr << "Error while filling ip address into hint" << endl;
+		return false;
+	}
 
 	cout << "Hint structure filled" << endl;
 
-	if (connectToServer() == false)
-		return isInitialized; // TODO: throw excecption that client coul't connect to server
+	// Connect to server
+	cout << "Trying to connect to server" << endl;
+	isConnected = true;
+	
+	int connRes = connect(sock, (sockaddr*)&hint, sizeof(hint));
+	if (connRes = SOCKET_ERROR) {
+		isConnected = false;
+		cerr << "Couln't connect to server!" << endl;
+	}
+
+	if (isConnected == false)
+		return isInitialized; // TODO: throw excecption that client could't connect to server
 
 	cout << "Connected to server" << endl;
 
@@ -92,10 +106,7 @@ void Client::cleanUp()
 
 bool Client::connectToServer()
 {
-	isConnected = true;
-
-	if (connect(sock, (sockaddr*)&hint, sizeof(hint)) == SOCKET_ERROR)
-		isConnected = false;
+	
 
 	return isConnected;
 }

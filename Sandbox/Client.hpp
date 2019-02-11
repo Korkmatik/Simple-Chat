@@ -21,7 +21,6 @@ protected:
 private:
 	SOCKET sock;
 	string ipAddress;
-	sockaddr_in hint;
 
 	bool isConnected;
 
