@@ -1,8 +1,14 @@
-#include <iostream>
+#include "Server.hpp"
 
 int main() 
 {
-	std::cout << "test" << std::endl;
-	std::cin.get();
+	Server s(8080);
+
+	if (s.init())
+		s.run();
+
+	cout << "Press any key to quit" << endl;
+	_getch();
+
 	return 0;
 }
