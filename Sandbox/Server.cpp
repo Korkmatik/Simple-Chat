@@ -5,28 +5,29 @@
 
 Server::Server(u_short port)
 	: BaseObject(port)
-{
-	WSAData data;
-	WORD version = MAKEWORD(2, 2);
-	if (WSAStartup(version, &data) != 0) {
-		cerr << "Cannot init winsock" << endl;
-		_getch();
-	}
+{	
+	cout << "Server created" << endl;
 }
 
 
 Server::~Server()
 {
-	WSACleanup();
+	if (!isCleanedUp)
+		cleanUp();
 }
 
 bool Server::init()
 {
+	cout << "Initializing Server" << endl;
+
+	isInitialized = false;
+
 	// Create a socket
 	listening  = socket(AF_INET, SOCK_STREAM, 0);
-	if (listening == INVALID_SOCKET) {
-		return false;
-	}
+	if (listening == INVALID_SOCKET)
+		return isInitialized; // TODO: throw error that socket is invalid
+
+	cout << "Socket initialized" << endl;
 
 	// Bind an ip address and a port to a socket
 	sockaddr_in hint;
@@ -36,17 +37,30 @@ bool Server::init()
 
 	bind(listening, (sockaddr*)&hint, sizeof(hint));
 
+	cout << "IP address and port binded" << endl;
+
 	// Tell winosck the socket is for listening
 	listen(listening, SOMAXCONN);
 	
 	FD_ZERO(&master);
 	FD_SET(listening, &master);
 
-	return true;
+	isInitialized = true;
+
+	cout << "Server initialization completed" << endl;
+
+	return isInitialized;
 }
 
 void Server::run()
 {
+	cout << "Starting server .." << endl;
+	
+	if (!isInitialized) {
+		cout << "Error: Server is not initialized yet" << endl;
+		return; // TODO: throw erver not initialized exception
+	}
+
 	while (true)
 	{
 		fd_set copy = master;
@@ -102,9 +116,12 @@ void Server::run()
 			}
 		}
 	}
+
+	cout << "Server going down .." << endl;
 }
 
 void Server::cleanUp()
 {
+	cout << "Cleaning server up" << endl;
 	isCleanedUp = true;
 }

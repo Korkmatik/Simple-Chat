@@ -14,12 +14,6 @@ public:
 	explicit Server(u_short port);
 	~Server();
 
-	Server(Server& other) = delete;
-	Server& operator=(Server& other) = delete;
-	Server(Server&& other) = delete;
-	Server& operator=(Server&& other) = delete;
-
-
 	bool init() override;
 	void run() override;
 	void cleanUp() override;

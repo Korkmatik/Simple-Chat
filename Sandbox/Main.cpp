@@ -1,4 +1,5 @@
 #include "Server.hpp"
+#include "Client.hpp"
 
 int main() 
 {
@@ -7,7 +8,10 @@ int main()
 
 	if (choice == 'c') {
 		cout << "Client is running" << endl;
+		Client c(8080, "127.0.0.1");
 
+		if (c.init())
+			c.run();
 	}
 	else if (choice == 's') {
 		cout << "Server is running" << endl;
@@ -23,6 +27,8 @@ int main()
 		cout << "No such option!" << endl;
 		_getch();
 	}
+
+
 
 	return 0;
 }

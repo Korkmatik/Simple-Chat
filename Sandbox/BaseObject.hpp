@@ -21,6 +21,8 @@ protected:
 	bool isCleanedUp;
 	u_short port;
 
+	bool isInitialized;
+
 private:
 
 };
