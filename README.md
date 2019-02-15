@@ -16,7 +16,7 @@ If you just want help, then start the program with the command line argument "--
 ![alt image](Screenshots/HelpMenu.png)
 
 ## Disclaimer
-**Please do not use this program outside your local are network. This program isn't safe at all and was only made for educational purposes!!**
+**Please do not use this program outside your local area network. This program isn't safe at all and was only made for educational purposes!!**
 
 ## How it works
 ### General
