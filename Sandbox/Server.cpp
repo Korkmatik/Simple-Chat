@@ -62,7 +62,7 @@ void Server::run()
 	if (!isInitialized)
 		throw ServerNotInitialized();
 
-	std::cout << "Server started" << std::endl;
+	std::cout << "Server started\n" << std::endl;
 
 	while (true)
 	{
@@ -95,7 +95,7 @@ void Server::run()
 						send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 				}
 
-				std::cout << strOut << "\t(" << ++connectedClients << " Clients connected)" << std::endl;
+				std::cout << strOut << "  (" << ++connectedClients << " Clients connected)" << std::endl;
 			}
 			else
 			{
@@ -106,7 +106,7 @@ void Server::run()
 				int bytesIn = recv(sock, buf, 4096, 0);
 				if (bytesIn <= 0)
 				{
-					std::cout << "Socket #" << sock << " disconnected\r\n" << "\t(" << --connectedClients << " Clients connected)" << std::endl;
+					std::cout << "Socket #" << sock << " disconnected\r\n" << "  (" << --connectedClients << " Clients connected)" << std::endl;
 
 					// drop the client
 					closesocket(sock);
