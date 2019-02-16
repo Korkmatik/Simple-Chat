@@ -6,7 +6,7 @@
 
 #define SERVER_PORT 8080
 
-int main() 
+int main1() 
 {
 	std::cout << "Do you want to run a (s)erver or a (c)lient?" << std::endl;
 	char choice = _getch();
