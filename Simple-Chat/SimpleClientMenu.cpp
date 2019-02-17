@@ -28,10 +28,13 @@ void SimpleClientMenu::getIpAddressFromUser()
 
 void SimpleClientMenu::getPortFromUser()
 {
-	std::cout << " Enter Server port: ";
+	std::cout << " Enter Server port(default=54000): ";
 	std::string portStr;
 	getline(std::cin, portStr);
-	port = std::stoi(portStr);
+	if (portStr.compare("") != 0)
+		port = std::stoi(portStr);
+	else
+		port = 54000;
 
 	std::cout << " [*]Server port set to: " << port << std::endl;
 }

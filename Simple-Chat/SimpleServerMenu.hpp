@@ -8,7 +8,6 @@ class SimpleServerMenu
 {
 public:
 	SimpleServerMenu();
-	~SimpleServerMenu();
 
 	void start();
 
@@ -19,6 +18,8 @@ private:
 	std::string nickname;
 
 	void getPortFromUser();
+	void getNicknameFromUser();
+	bool userStartsServer();
 	void startServer();
 };
 

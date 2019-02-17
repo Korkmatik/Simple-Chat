@@ -1,4 +1,5 @@
 #include "SimpleClient.hpp"
+#include "ServerClientExceptions.hpp"
 
 #include <iostream>
 

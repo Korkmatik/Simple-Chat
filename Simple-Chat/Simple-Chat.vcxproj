@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="BaseObject.hpp" />
     <ClInclude Include="ExceptionLogger.hpp" />
+    <ClInclude Include="ServerClientExceptions.hpp" />
     <ClInclude Include="Main_Menu.hpp" />
     <ClInclude Include="SimpleClient.hpp" />
     <ClInclude Include="SimpleClientMenu.hpp" />
