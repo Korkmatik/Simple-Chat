@@ -2,14 +2,10 @@
 
 #include <iostream>
 #include <conio.h>
+#include <memory>
 
 SimpleClientMenu::SimpleClientMenu()
 {}
-
-
-SimpleClientMenu::~SimpleClientMenu()
-{
-}
 
 void SimpleClientMenu::start()
 {

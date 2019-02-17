@@ -2,13 +2,10 @@
 
 #include "SimpleClient.hpp"
 
-#include <memory>
-
 class SimpleClientMenu
 {
 public:
 	SimpleClientMenu();
-	~SimpleClientMenu();
 
 	void start();
 
