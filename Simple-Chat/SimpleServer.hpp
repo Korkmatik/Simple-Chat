@@ -1,13 +1,13 @@
 #pragma once
 
-#include "BaseObject.hpp"
+#include "BaseSocket.hpp"
 #include "ServerClientExceptions.hpp"
 
 #include <WS2tcpip.h>
 #include <exception>
 #include <string>
 
-class SimpleServer : public BaseObject
+class SimpleServer : public BaseSocket
 {
 public:
 	SimpleServer(std::string& nickname, unsigned int port = 8080);

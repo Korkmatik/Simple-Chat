@@ -128,7 +128,7 @@
     <ClCompile Include="Simple_Chat.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseObject.hpp" />
+    <ClInclude Include="BaseSocket.hpp" />
     <ClInclude Include="ExceptionLogger.hpp" />
     <ClInclude Include="ServerClientExceptions.hpp" />
     <ClInclude Include="Main_Menu.hpp" />
