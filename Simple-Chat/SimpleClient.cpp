@@ -48,16 +48,18 @@ void SimpleClient::run()
 	// do while loop to send and receive data
 	char buf[4096];
 	std::string userInput;
+	std::string sendData;
 
 	do
 	{
 		// Prompt the user for some text
-		std::cout << "> ";
+		std::cout << nickname << "> ";
 		getline(std::cin, userInput);
+		sendData = nickname + "> " + userInput;
 
 		if (userInput.size() > 0) {
 			// Send the text
-			int sendResult = send(sock, userInput.c_str(), userInput.size() + 1, 0);
+			int sendResult = send(sock, sendData.c_str(), sendData.size() + 1, 0);
 			if (sendResult != SOCKET_ERROR) {
 				//Wait for response
 				ZeroMemory(buf, 4096);
@@ -65,7 +67,7 @@ void SimpleClient::run()
 
 				if (bytesReceived > 0) {
 					// Echo response to console
-					std::cout << "SERVER> " << std::string(buf, 0, bytesReceived) << std::endl;
+					std::cout << std::string(buf, 0, bytesReceived) << std::endl;
 				}
 			}
 		}
