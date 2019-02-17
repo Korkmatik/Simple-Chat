@@ -13,55 +13,47 @@ SimpleClientMenu::~SimpleClientMenu()
 
 void SimpleClientMenu::start()
 {
-	try
-	{
-		getIpAddressFromUser();
-		getPortFromUser();
-		getNicknameFromUser();		
-		startClient();
-	}
-	catch (const std::exception& e)
-	{
-		SYSTEMTIME time;
-		GetLocalTime(&time);
-
-		std::cerr << "An error occured(" << time.wDay << "/" << time.wMonth << "/" << time.wYear << " " 
-			<< time.wHour << ":" << time.wMinute << "): " << e.what()<< std::endl;
-		_getch();
-	}
+	getIpAddressFromUser();
+	getPortFromUser();
+	getNicknameFromUser();		
+	startClient();
 }
 
 void SimpleClientMenu::getIpAddressFromUser()
 {
-	std::cout << "Enter Server Ip-Address(Nothing for localhost): ";
+	std::cout << " Enter Server Ip-Address(Nothing for localhost): ";
 	getline(std::cin, ipAddress);
 	if (ipAddress.compare("") == 0)
 		ipAddress = "127.0.0.1";
 
-	std::cout << "Server Ip-Address set to: " << ipAddress << std::endl;
+	std::cout << " [*]Server Ip-Address set to: " << ipAddress << std::endl;
 }
 
 void SimpleClientMenu::getPortFromUser()
 {
-	std::cout << "Enter Server port: ";
+	std::cout << " Enter Server port: ";
 	std::string portStr;
 	getline(std::cin, portStr);
 	port = std::stoi(portStr);
 
-	std::cout << "Server port set to: " << port << std::endl;
+	std::cout << " [*]Server port set to: " << port << std::endl;
 }
 
 void SimpleClientMenu::getNicknameFromUser()
 {
-	std::cout << "Enter your desired nickname: ";
+	std::cout << " Enter your desired nickname: ";
 	getline(std::cin, nickname);
 
-	std::cout << "Nickname set to: " << nickname << std::endl;
+	std::cout << " [*]Nickname set to: " << nickname << std::endl;
 }
 
 void SimpleClientMenu::startClient()
 {
-	std::cout << "Starting Client ..";
+	std::cout << " Press a key to connect to the server" << std::endl;
+	_getch();
+	system("cls");
+
+	std::cout << "Starting Client ..\n";
 	client = std::make_unique<SimpleClient>(nickname, ipAddress, port);
 	try
 	{
@@ -70,6 +62,11 @@ void SimpleClientMenu::startClient()
 	}
 	catch (const std::exception& e)
 	{
-		throw e;
+		SYSTEMTIME time;
+		GetLocalTime(&time);
+
+		std::cerr << "[-]An error occured(" << time.wDay << "/" << time.wMonth << "/" << time.wYear << " "
+			<< time.wHour << ":" << time.wMinute << "): " << e.what() << std::endl;
+		_getch();
 	}
 }
