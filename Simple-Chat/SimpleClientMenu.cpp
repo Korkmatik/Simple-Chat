@@ -31,7 +31,7 @@ void SimpleClientMenu::printMenuTitle()
 
 void SimpleClientMenu::getIpAddressFromUser()
 {
-	std::cout << " [>]Enter Server Ip-Address(Nothing for localhost): ";
+	std::cout << " [>]Enter Server Ip-Address(default=localhost): ";
 	getline(std::cin, ipAddress);
 	if (ipAddress.compare("") == 0)
 		ipAddress = "127.0.0.1";
