@@ -16,6 +16,6 @@ struct ExceptionLogger
 			<< time.wHour << ":" << time.wMinute << "): " << e.what() <<
 			"\nPress a key to return to menu ..." << std::endl;
 
-		_getch();
+		_getwch();
 	}
 };

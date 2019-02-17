@@ -18,7 +18,7 @@ Main_Menu::MENU_ENTRIES Main_Menu::start_menu()
 		if (user_choice != NO_ENTRY)
 			break;
 		std::cout << " Sorry, no such menu entry" << std::endl;
-		_getch();
+		_getwch();
 	}
 
 	return user_choice;
@@ -28,22 +28,22 @@ void Main_Menu::print_menu()
 {
 	system("cls");
 
-	std::cout << "     Welcome to the Simple-Chat!\n"
-				 " Choose one of the menu entries below!\n"
+	std::cout << "      Welcome to the Simple-Chat!\n"
+				 "   Choose one of the menu entries below!\n"
 				 "+-------------------------------------------+\n";
 
 	for (size_t i = 0; i < menu_entries.size(); ++i)
 		std::cout << std::setw(2) << i + 1 << " - " << menu_entries[i] << "\n";
 	
 	std::cout << "+-------------------------------------------+\n"
-			  << " Your choice: ";
+			  << " [>]Your choice: ";
 }
 
 Main_Menu::MENU_ENTRIES Main_Menu::get_user_choice()
 {
 	Main_Menu::MENU_ENTRIES retVal;
 
-	char user_choice = _getch();
+	char user_choice = char(_getwch());
 	std::cout << user_choice << std::endl;
 	user_choice = user_choice - '0' - 1;
 

@@ -67,8 +67,8 @@ void SimpleChat::handle_user_input(const Main_Menu::MENU_ENTRIES &user_choice)
 		simple_client_menu->start();
 		break;
 	default:
-		std::cout << "Sorry, no such menu entry" << std::endl;
-		_getch();
+		std::cout << "[-]Sorry, no such menu entry" << std::endl;
+		_getwch();
 		break;
 	}
 }

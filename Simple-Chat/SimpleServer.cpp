@@ -3,8 +3,8 @@
 #include <iostream>
 #include <conio.h>
 
-SimpleServer::SimpleServer(unsigned int port)
-	: port(port)
+SimpleServer::SimpleServer(std::string& nickname, unsigned int port)
+	: nickname(nickname), port(port)
 {
 	listening = INVALID_SOCKET;
 	isWsaInitialized = false;
@@ -21,8 +21,8 @@ SimpleServer::~SimpleServer()
 	if(isWsaInitialized)
 		WSACleanup();
 
-	std::cout << "Server shut down\nPress any key to quit" << std::endl;
-	_getch();
+	std::cout << "[*]Server shut down\n[>]Press any key to return to menu" << std::endl;
+	_getwch();
 }
 
 void SimpleServer::initialize()
@@ -54,6 +54,8 @@ void SimpleServer::initialize()
 
 void SimpleServer::run()
 {
+	std::cout << "[*]Server started\r\n[*]Waiting for client to connect ..." << std::endl;
+
 	// wait for a connection
 	sockaddr_in client;
 	int clientSize = sizeof(client);
@@ -69,11 +71,11 @@ void SimpleServer::run()
 	ZeroMemory(service, NI_MAXSERV);
 
 	if (getnameinfo((sockaddr*)&client, sizeof(client), host, NI_MAXHOST, service, NI_MAXSERV, 0) == 0) {
-		std::cout << host << " connected on port " << service << std::endl;
+		std::cout << "[*]" << host << " connected on port " << service << std::endl;
 	}
 	else {
 		inet_ntop(AF_INET, &client.sin_addr, host, NI_MAXHOST);
-		std::cout << host << " connected on port " << ntohs(client.sin_port) << std::endl;
+		std::cout << "[*]" << host << " connected on port " << ntohs(client.sin_port) << std::endl;
 	}
 
 	// Close listening socket
@@ -90,7 +92,7 @@ void SimpleServer::run()
 		int bytesReceived = recv(clientSocket, buf, 4096, 0);
 
 		if (bytesReceived <= 0) {
-			std::cout << "Client disconnected" << std::endl;
+			std::cout << "[*]Client disconnected" << std::endl;
 			break;
 		}
 
