@@ -29,14 +29,29 @@ void SimpleServerMenu::printMenuTitle()
 
 void SimpleServerMenu::getPortFromUser()
 {
-	std::cout << " [>]On which port should the server run?(default=54000): ";
-	std::string portStr;
-	getline(std::cin, portStr);
+	bool isPortSet = false;
 	
-	if (portStr.compare("") != 0)
-		port = std::stoi(portStr);
-	else
-		port = 54000;
+	while (!isPortSet) {
+		std::cout << " [>]On which port should the server run?(default=54000): ";
+		std::string portStr;
+		getline(std::cin, portStr);
+
+		if (portStr.compare("") != 0) {
+			try
+			{
+				port = std::stoi(portStr);
+			}
+			catch (const std::invalid_argument&)
+			{
+				std::cerr << " [-]Sorry, port must be an integer! Try again." << std::endl;
+				continue;
+			}
+		}
+		else
+			port = 54000;
+
+		isPortSet = true;
+	}
 
 	std::cout << " [*]Server port set to: " << port << std::endl;
 }

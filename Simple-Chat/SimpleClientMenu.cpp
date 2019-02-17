@@ -41,15 +41,31 @@ void SimpleClientMenu::getIpAddressFromUser()
 
 void SimpleClientMenu::getPortFromUser()
 {
-	std::cout << " [>]Enter Server port(default=54000): ";
-	std::string portStr;
-	getline(std::cin, portStr);
-	if (portStr.compare("") != 0)
-		port = std::stoi(portStr);
-	else
-		port = 54000;
+	bool portIsSet = false;
+
+	while (!portIsSet) {
+		std::cout << " [>]Enter Server port(default=54000): ";
+		std::string portStr;
+		getline(std::cin, portStr);
+		if (portStr.compare("") != 0) {
+			try
+			{
+				port = std::stoi(portStr);
+			}
+			catch (std::invalid_argument&)
+			{
+				std::cerr << " [-]Sorry, port must be an integer! Try again." << std::endl;
+				continue;
+			}
+		}
+		else
+			port = 54000;
+
+		portIsSet = true;
+	}
 
 	std::cout << " [*]Server port set to: " << port << std::endl;
+	
 }
 
 void SimpleClientMenu::getNicknameFromUser()
@@ -85,14 +101,18 @@ void SimpleClientMenu::startClient()
 	system("cls");
 
 	std::cout << "[*]Starting Client ...\n";
-	client = std::make_unique<SimpleClient>(nickname, ipAddress, port);
+	
 	try
 	{
+		client = std::make_unique<SimpleClient>(nickname, ipAddress, port);
 		client->initialize();
 		client->run();
+		client.reset();
 	}
 	catch (const std::exception& e)
 	{
 		ExceptionLogger::logException(e);
 	}
+
+	
 }
