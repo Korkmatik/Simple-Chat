@@ -1,4 +1,5 @@
 #include "SimpleClientMenu.hpp"
+#include "ExceptionLogger.hpp"
 
 #include <iostream>
 #include <conio.h>
@@ -58,11 +59,6 @@ void SimpleClientMenu::startClient()
 	}
 	catch (const std::exception& e)
 	{
-		SYSTEMTIME time;
-		GetLocalTime(&time);
-
-		std::cerr << "[-]An error occured(" << time.wDay << "/" << time.wMonth << "/" << time.wYear << " "
-			<< time.wHour << ":" << time.wMinute << "): " << e.what() << std::endl;
-		_getch();
+		ExceptionLogger::logException(e);
 	}
 }
