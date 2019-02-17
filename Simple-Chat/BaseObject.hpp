@@ -2,9 +2,9 @@
 class BaseObject
 {
 public:
-	BaseObject();
-	virtual ~BaseObject();
+	inline BaseObject() {}
 
-	virtual void start() = 0;
+	virtual void run() = 0;
+	virtual void initialize() = 0;
 };
 
