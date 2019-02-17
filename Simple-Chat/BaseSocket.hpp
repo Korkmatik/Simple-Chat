@@ -1,8 +1,8 @@
 #pragma once
-class BaseObject
+class BaseSocket
 {
 public:
-	inline BaseObject() {}
+	inline BaseSocket() {}
 
 	virtual void run() = 0;
 	virtual void initialize() = 0;

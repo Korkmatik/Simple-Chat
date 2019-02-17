@@ -1,12 +1,12 @@
 #pragma once
 
-#include "BaseObject.hpp"
+#include "BaseSocket.hpp"
 
 #include <string>
 #include <WS2tcpip.h>
 #include <exception>
 
-class SimpleClient : public BaseObject
+class SimpleClient : public BaseSocket
 {
 public:
 	SimpleClient(std::string& nickname, std::string ipAddress = "127.0.0.1", int port = 54000);
