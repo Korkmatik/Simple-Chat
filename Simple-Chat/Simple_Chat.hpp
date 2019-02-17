@@ -2,6 +2,7 @@
 
 #include "Main_Menu.hpp"
 #include "SimpleClientMenu.hpp"
+#include "SimpleServerMenu.hpp"
 
 #include <string>
 #include <memory>
@@ -26,6 +27,7 @@ private:
 	// Menus
 	std::unique_ptr<Main_Menu> main_menu;
 	std::unique_ptr<SimpleClientMenu> simple_client_menu;
+	std::unique_ptr<SimpleServerMenu> simple_server_menu;
 
 	SimpleChat::MODE mode;
 

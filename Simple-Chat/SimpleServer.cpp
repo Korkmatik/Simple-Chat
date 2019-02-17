@@ -30,9 +30,9 @@ void SimpleServer::initialize()
 	// Initialize winsock
 	WSAData wsData;
 	WORD ver = MAKEWORD(2, 2);
-
-	if (WSAStartup(ver, &wsData) != 0)
-		throw WsaStartupFail();
+	int wsaOk = WSAStartup(ver, &wsData);
+	if (wsaOk != 0)
+		throw WsaStartupFail(wsaOk);
 
 	isWsaInitialized = true;
 
