@@ -21,7 +21,7 @@ SimpleServer::~SimpleServer()
 	if(isWsaInitialized)
 		WSACleanup();
 
-	std::cout << "[*]Server shut down\n[>]Press any key to return to menu" << std::endl;
+	std::cout << "[*]Server shut down\r\n[>]Press any key to return to menu" << std::endl;
 	_getwch();
 }
 
@@ -84,19 +84,38 @@ void SimpleServer::run()
 
 	// while loop: accept and echo message back to client
 	char buf[4096];
+	std::string userInput, sendData;
+
+	std::cout <<
+		"[i]Enter nothing, if you want to shut down the connection\n"
+		"[i]Enter \"cls\", if you want to clear the screen"
+		<< std::endl;
 
 	while (true) {
 		ZeroMemory(buf, 4096);
 
+		// Message to send
+		std::cout << nickname << "> ";
+		getline(std::cin, userInput);
+
+		if (userInput.compare("cls") == 0) {
+			system("cls");
+			continue;
+		}
+		else if (userInput.compare("") == 0)
+			break;
+
+		sendData = nickname + "> " + userInput;
+		send(clientSocket, sendData.c_str(), sendData.size() + 1, 0);
+
 		// wait for client to send data
 		int bytesReceived = recv(clientSocket, buf, 4096, 0);
+		std::cout << buf;
 
 		if (bytesReceived <= 0) {
 			std::cout << "[*]Client disconnected" << std::endl;
 			break;
 		}
-
-		// echo message back to client
-		send(clientSocket, buf, bytesReceived + 1, 0);
+		
 	}
 }
