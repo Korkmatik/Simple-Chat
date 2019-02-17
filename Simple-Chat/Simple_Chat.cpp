@@ -6,6 +6,7 @@
 SimpleChat::SimpleChat()
 {
 	main_menu = std::make_unique<Main_Menu>();
+	simple_client_menu = std::make_unique<SimpleClientMenu>();
 }
 
 void SimpleChat::start_application(SimpleChat::MODE mode)
@@ -59,10 +60,10 @@ void SimpleChat::handle_user_input(const Main_Menu::MENU_ENTRIES &user_choice)
 {
 	switch (user_choice) {
 	case Main_Menu::START_SERVER:
-		
+	
 		break;
 	case Main_Menu::CONNET_TO_SERVER:
-		
+		simple_client_menu->start();
 		break;
 	default:
 		std::cout << "Sorry, no such menu entry" << std::endl;
