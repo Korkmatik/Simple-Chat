@@ -16,7 +16,7 @@ If you just want help, then start the program with the command line argument "--
 ![alt image](Screenshots/HelpMenu.png)
 
 ## Disclaimer
-**Please do not use this program outside your local area network. This program isn't safe at all and was only made for educational purposes!!**
+**Please do not use this program outside of your local area network. This program isn't safe at all and was only made for educational purposes!!**
 
 ## How it works
 ### General
@@ -24,7 +24,7 @@ For creating the sockets I have chosen the Winsock library. The connection type 
 
 ### Server
 If you choose to start a server, the program will spawn a server on your PC. It will listen for incoming connections and it will inform you about these connection. Also all message received will be echoed to other clients.
-If you want to use this server over the Internet, you have to manually port forward you machine. **But I highly discourage you to do so!! This server isn't safe at all. I have just made it for fun and for educational purposes**
+If you want to use this server over the Internet, you have to manually port forward your machine. **But I highly discourage you to do so!! This server isn't safe at all. I have just made it for fun and for educational purposes**
 
 ### Client
 If you choose to start a client, you will be lead through a small menu, where you have to input port and IP-Address of the server you want to connect to. After that you will be able to chat with all people who are also connected to this specific server.
