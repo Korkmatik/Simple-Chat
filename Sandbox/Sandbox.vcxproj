@@ -130,11 +130,13 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Main2.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="SimpleClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.hpp" />
     <ClInclude Include="Client.hpp" />
     <ClInclude Include="Server.hpp" />
+    <ClInclude Include="SimpleClient.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
