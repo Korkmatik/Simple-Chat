@@ -56,13 +56,22 @@ void SimpleClient::run()
 	std::string userInput;
 	std::string sendData;
 	
-	std::cout << "[*]Client started!" << std::endl;
+	std::cout << "[*]Client started!\n"
+		"[i]Enter nothing, if you want to shut down the connection\n"
+		"[i]Enter \"cls\", if you want to clear the screen" 
+		<< std::endl;
 
 	do
 	{
 		// Prompt the user for some text
 		std::cout << nickname << "> ";
 		getline(std::cin, userInput);
+		
+		if (userInput.compare("cls") == 0) {
+			system("cls");
+			continue;
+		}
+
 		sendData = nickname + "> " + userInput;
 
 		if (userInput.size() > 0) {
