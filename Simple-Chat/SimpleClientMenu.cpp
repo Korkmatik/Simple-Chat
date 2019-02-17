@@ -43,8 +43,10 @@ void SimpleClientMenu::getIpAddressFromUser()
 
 void SimpleClientMenu::getPortFromUser()
 {
-	std::cout << "Enter Server port";
-	std::cin >> port;
+	std::cout << "Enter Server port: ";
+	std::string portStr;
+	getline(std::cin, portStr);
+	port = std::stoi(portStr);
 
 	std::cout << "Server port set to: " << port << std::endl;
 }
