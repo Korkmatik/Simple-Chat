@@ -17,6 +17,7 @@ private:
 	unsigned int port;
 	std::string nickname;
 
+	void printMenuTitle();
 	void getPortFromUser();
 	void getNicknameFromUser();
 	bool userStartsServer();

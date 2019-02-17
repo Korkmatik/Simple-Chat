@@ -9,7 +9,7 @@
 int main1() 
 {
 	std::cout << "Do you want to run a (s)erver or a (c)lient?" << std::endl;
-	char choice = _getch();
+	char choice = _getwch();
 
 	if (choice == 'c') {
 		std::cout << "CLIENT\n-------------------------------------------"<< std::endl;
@@ -18,7 +18,7 @@ int main1()
 			c.run();
 
 		std::cout << "Press any key to quit" << std::endl;
-		_getch();
+		_getwch();
 	}
 	else if (choice == 's') {
 		std::cout << "SERVER\n-------------------------------------------" << std::endl;
@@ -28,11 +28,11 @@ int main1()
 			s.run();
 
 		std::cout << "Press any key to quit" << std::endl;
-		_getch();
+		_getwch();
 	}
 	else {
 		std::cout << "No such option!" << std::endl;
-		_getch();
+		_getwch();
 	}
 
 

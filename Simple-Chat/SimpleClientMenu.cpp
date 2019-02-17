@@ -10,15 +10,28 @@ SimpleClientMenu::SimpleClientMenu()
 
 void SimpleClientMenu::start()
 {
+	printMenuTitle();
 	getIpAddressFromUser();
 	getPortFromUser();
 	getNicknameFromUser();		
-	startClient();
+	if (userStartsClient())
+		startClient();
+}
+
+void SimpleClientMenu::printMenuTitle()
+{
+	system("cls");
+	std::cout <<
+		"         Client configurations\n"
+		"+-----------------------------------------+\n"
+		" [i]If a default configuration is given,\n"
+		"    just hit enter to choose it\n"
+		"+-----------------------------------------+\n";
 }
 
 void SimpleClientMenu::getIpAddressFromUser()
 {
-	std::cout << " Enter Server Ip-Address(Nothing for localhost): ";
+	std::cout << " [>]Enter Server Ip-Address(Nothing for localhost): ";
 	getline(std::cin, ipAddress);
 	if (ipAddress.compare("") == 0)
 		ipAddress = "127.0.0.1";
@@ -28,7 +41,7 @@ void SimpleClientMenu::getIpAddressFromUser()
 
 void SimpleClientMenu::getPortFromUser()
 {
-	std::cout << " Enter Server port(default=54000): ";
+	std::cout << " [>]Enter Server port(default=54000): ";
 	std::string portStr;
 	getline(std::cin, portStr);
 	if (portStr.compare("") != 0)
@@ -41,19 +54,37 @@ void SimpleClientMenu::getPortFromUser()
 
 void SimpleClientMenu::getNicknameFromUser()
 {
-	std::cout << " Enter your desired nickname: ";
+	std::cout << " [>]Enter your desired nickname: ";
 	getline(std::cin, nickname);
 
 	std::cout << " [*]Nickname set to: " << nickname << std::endl;
 }
 
+bool SimpleClientMenu::userStartsClient()
+{
+	std::cout << "\n [i]You have entered these informations:" <<
+		"\n \tServer IP-Address: " << ipAddress <<
+		"\n \tServer Port: " << port <<
+		"\n \tNickname: " << nickname <<
+		"\n [?]Do you want to connect to the server?(y/n) ";
+
+	wint_t userInput = _getwch();
+	std::cout << char(userInput) << std::endl;
+	
+	if (userInput == 'y' || userInput == 'Y')
+		return true;
+	else {
+		std::cout << " [>]Press a key to return to menu" << std::endl;
+		_getwch();
+		return false;
+	}
+}
+
 void SimpleClientMenu::startClient()
 {
-	std::cout << " Press a key to connect to the server" << std::endl;
-	_getch();
 	system("cls");
 
-	std::cout << "Starting Client ..\n";
+	std::cout << "[*]Starting Client ...\n";
 	client = std::make_unique<SimpleClient>(nickname, ipAddress, port);
 	try
 	{

@@ -10,7 +10,7 @@
 class SimpleServer : public BaseObject
 {
 public:
-	SimpleServer(unsigned int port = 8080);
+	SimpleServer(std::string& nickname, unsigned int port = 8080);
 	~SimpleServer();
 
 	void initialize();

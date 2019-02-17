@@ -16,9 +16,11 @@ private:
 
 	std::unique_ptr<SimpleClient> client;	
 
+	void printMenuTitle();
 	void getIpAddressFromUser();
 	void getPortFromUser();
 	void getNicknameFromUser();
+	bool userStartsClient();
 	void startClient();
 };
 

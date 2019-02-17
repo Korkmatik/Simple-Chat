@@ -2,6 +2,7 @@
 #include "ServerClientExceptions.hpp"
 
 #include <iostream>
+#include <conio.h>
 
 SimpleClient::SimpleClient(std::string& nickname, std::string ipAddress, int port)
 	: ipAddress(ipAddress), port(port), nickname(nickname), isSocketInitialized(false), isWsaInitialized(false)
@@ -22,6 +23,10 @@ SimpleClient::~SimpleClient()
 
 	if (isWsaInitialized)
 		WSACleanup();
+
+	std::cout << "[*]Client shut down!\n[>]Press any key to return to menu..." << std::endl;
+	_getwch();
+	system("cls");
 }
 
 void SimpleClient::initialize()
@@ -50,6 +55,8 @@ void SimpleClient::run()
 	char buf[4096];
 	std::string userInput;
 	std::string sendData;
+	
+	std::cout << "[*]Client started!" << std::endl;
 
 	do
 	{

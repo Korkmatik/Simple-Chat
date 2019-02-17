@@ -63,13 +63,13 @@ void Client::run()
 {
 	if (!isConnected) {
 		std::cout << "Can't start client! Client isn't connected to a server!" << std::endl;
-		_getch();
+		_getwch();
 		return;
 	}
 
 	if (!isInitialized) {
 		std::cout << "Can't start client! Client isn't initialized!" << std::endl;
-		_getch();
+		_getwch();
 		return;
 	}
 
