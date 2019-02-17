@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-SimpleClient::SimpleClient(std::string ipAddress, int port)
-	: ipAddress(ipAddress), port(port), isSocketInitialized(false), isWsaInitialized(false)
+SimpleClient::SimpleClient(std::string& nickname, std::string ipAddress, int port)
+	: ipAddress(ipAddress), port(port), nickname(nickname), isSocketInitialized(false), isWsaInitialized(false)
 {
 	WSADATA data;
 	WORD ver = MAKEWORD(2, 2);

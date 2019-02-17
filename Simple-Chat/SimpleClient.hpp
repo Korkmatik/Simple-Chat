@@ -7,7 +7,7 @@
 class SimpleClient
 {
 public:
-	SimpleClient(std::string ipAddress = "127.0.0.1", int port = 54000);
+	SimpleClient(std::string& nickname, std::string ipAddress = "127.0.0.1", int port = 54000);
 	~SimpleClient();
 
 	void initialize();
@@ -16,6 +16,7 @@ public:
 private:
 	std::string ipAddress;
 	int port;
+	std::string nickname;
 
 	SOCKET sock;
 	sockaddr_in hint;
