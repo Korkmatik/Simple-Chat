@@ -76,7 +76,7 @@ void SimpleClient::run()
 
 		if (userInput.size() > 0) {
 			// Send the text
-			int sendResult = send(sock, sendData.c_str(), sendData.size() + 1, 0);
+			size_t sendResult = send(sock, sendData.c_str(), sendData.size() + 1, 0);
 			if (sendResult != SOCKET_ERROR) {
 				//Wait for response
 				ZeroMemory(buf, 4096);
