@@ -1,4 +1,7 @@
 #pragma once
+
+#include <memory>
+
 class BaseSocket
 {
 public:
